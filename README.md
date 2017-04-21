@@ -12,19 +12,21 @@ http://nohohomhom.seesaa.net/article/430404156.html
 
 ## 認証
 
+Private Tokens を使用
+
 https://docs.gitlab.com/ce/api/README.html
 
 　
 
-## リポジトリ一覧取得
+## プロジェクト一覧取得
 
-https://docs.gitlab.com/ce/api/repositories.html
+https://docs.gitlab.com/ce/api/projects.html
 
 　
 
-## (リポジトリのIDを指定して)マージリクエストの一覧取得
+## (プロジェクトのIDを指定して)コミットの一覧取得
 
-https://docs.gitlab.com/ce/api/merge_requests.html#list-merge-requests
+https://docs.gitlab.com/ce/api/commits.html
 
-※"author"をブレイク処理で件数集約。多い順ベスト３を有識者と断定
+※"author_name"をブレイク処理で件数集約。多い順ベスト３を有識者と断定
 
