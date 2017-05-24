@@ -35,16 +35,12 @@ func main() {
 
 	tmpl := template.Must(template.ParseFiles("./tmpl.md"))
 	buf := &bytes.Buffer{}
-	err = tmpl.Execute(buf, &gitlabInfos{Infos: infos})
+	err = tmpl.Execute(buf, infos)
 	if err != nil {
 		panic(err)
 	}
 
 	fmt.Println(buf.String())
-}
-
-type gitlabInfos struct {
-	Infos []*gitlabInfo
 }
 
 type gitlabInfo struct {
