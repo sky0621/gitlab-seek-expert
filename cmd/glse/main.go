@@ -29,7 +29,12 @@ func main() {
 	infos := []*gitlabInfo{}
 	for _, p := range projects {
 		infos = append(infos, &gitlabInfo{
-			Name: p.Name,
+			ID:          p.ID,
+			NamespaceID: p.Namespace.ID,
+			Namespace:   p.Namespace.Name,
+			Name:        p.Name,
+			Description: p.Description,
+			CommitCount: p.Statistics.CommitCount,
 		})
 	}
 
@@ -44,5 +49,10 @@ func main() {
 }
 
 type gitlabInfo struct {
-	Name string
+	ID          int
+	NamespaceID int
+	Namespace   string
+	Name        string
+	Description string
+	CommitCount int
 }

@@ -1,6 +1,6 @@
-GitLab
+GitLab Information
 
-| Project Name |
+| Project NameSpace | Project Name | Description | CommitCount |
 | :--- |
-{{range .}}| {{.Name}} |
+{{range .}}| {{.Namespace}} | {{.Name}} | {{.Description}} | {{.CommitCount}} |
 {{end}}
