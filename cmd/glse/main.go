@@ -17,7 +17,7 @@ func main() {
 	pkey := flag.String("pkey", "xxxxxxxxxx", "Your GitLab Private Key")
 	flag.Parse()
 	git := gitlab.NewClient(nil, *pkey)
-	git.SetBaseURL(fmt.Sprintf("https://%s/api/v3", *host))
+	git.SetBaseURL(fmt.Sprintf("%s/api/v3", *host))
 	projects, res, err := git.Projects.ListAllProjects(nil)
 	if err != nil {
 		panic(err)
