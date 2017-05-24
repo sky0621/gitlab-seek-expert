@@ -1,7 +1,52 @@
 package main
 
-import "fmt"
+import (
+	"bytes"
+	"flag"
+	"fmt"
+	"html/template"
 
+	"errors"
+
+	gitlab "github.com/xanzy/go-gitlab"
+)
+
+// TODO 機能実現スピード最優先での実装なので要リファクタ
 func main() {
-	fmt.Println("Hello")
+	host := flag.String("host", "example.com", "GitLab Host Name")
+	pkey := flag.String("pkey", "xxxxxxxxxx", "Your GitLab Private Key")
+	flag.Parse()
+	git := gitlab.NewClient(nil, *pkey)
+	git.SetBaseURL(fmt.Sprintf("https://%s/api/v3", *host))
+	projects, res, err := git.Projects.ListAllProjects(nil)
+	if err != nil {
+		panic(err)
+	}
+	if res.Status != "200 OK" {
+		panic(errors.New("not 200 OK"))
+	}
+
+	infos := []*gitlabInfo{}
+	for _, p := range projects {
+		infos = append(infos, &gitlabInfo{
+			Name: p.Name,
+		})
+	}
+
+	tmpl := template.Must(template.ParseFiles("./tmpl.md"))
+	buf := &bytes.Buffer{}
+	err = tmpl.Execute(buf, &gitlabInfos{Infos: infos})
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(buf.String())
+}
+
+type gitlabInfos struct {
+	Infos []*gitlabInfo
+}
+
+type gitlabInfo struct {
+	Name string
 }
