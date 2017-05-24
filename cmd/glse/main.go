@@ -34,7 +34,7 @@ func main() {
 			Namespace:   p.Namespace.Name,
 			Name:        p.Name,
 			Description: p.Description,
-			CommitCount: p.Statistics.CommitCount,
+			CommitCount: getCommitCount(p.Statistics),
 		})
 	}
 
@@ -55,4 +55,11 @@ type gitlabInfo struct {
 	Name        string
 	Description string
 	CommitCount int
+}
+
+func getCommitCount(st *gitlab.ProjectStatistics) int {
+	if st == nil {
+		return 0
+	}
+	return st.CommitCount
 }
