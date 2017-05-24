@@ -18,7 +18,7 @@ func main() {
 	flag.Parse()
 	git := gitlab.NewClient(nil, *pkey)
 	git.SetBaseURL(fmt.Sprintf("%s/api/v3", *host))
-	projects, res, err := git.Projects.ListAllProjects(nil)
+	projects, res, err := git.Projects.ListProjects(nil)
 	if err != nil {
 		panic(err)
 	}
