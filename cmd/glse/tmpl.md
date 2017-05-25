@@ -1,6 +1,6 @@
-GitLab Information
+## リポジトリ一覧
 
-| Project NameSpace | Project Name | Description | CommitCount |
-| :--- |
-{{range .}}| {{.Namespace}} | {{.Name}} | {{.Description}} | {{.CommitCount}} |
+| No | Project NameSpace | Project Name | Description |
+| :--- | :--- | :--- | :--- |
+{{range .}}| {{.No}} | {{.Namespace}} | {{.Name}} | {{.Description}} |
 {{end}}

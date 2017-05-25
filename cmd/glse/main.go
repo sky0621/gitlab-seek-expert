@@ -18,7 +18,16 @@ func main() {
 	flag.Parse()
 	git := gitlab.NewClient(nil, *pkey)
 	git.SetBaseURL(fmt.Sprintf("%s/api/v3", *host))
-	projects, res, err := git.Projects.ListProjects(nil)
+	ob := "name"
+	st := "asc"
+	projects, res, err := git.Projects.ListProjects(&gitlab.ListProjectsOptions{
+		OrderBy: &ob,
+		Sort: &st,
+		ListOptions: gitlab.ListOptions{
+			Page: 1,
+			PerPage: 1000,
+		},
+	})
 	if err != nil {
 		panic(err)
 	}
@@ -27,14 +36,14 @@ func main() {
 	}
 
 	infos := []*gitlabInfo{}
-	for _, p := range projects {
+	for idx, p := range projects {
 		infos = append(infos, &gitlabInfo{
+			No:          idx+1,
 			ID:          p.ID,
 			NamespaceID: p.Namespace.ID,
 			Namespace:   p.Namespace.Name,
 			Name:        p.Name,
 			Description: p.Description,
-			CommitCount: getCommitCount(p.Statistics),
 		})
 	}
 
@@ -49,17 +58,10 @@ func main() {
 }
 
 type gitlabInfo struct {
+	No	int
 	ID          int
 	NamespaceID int
 	Namespace   string
 	Name        string
 	Description string
-	CommitCount int
-}
-
-func getCommitCount(st *gitlab.ProjectStatistics) int {
-	if st == nil {
-		return 0
-	}
-	return st.CommitCount
 }
