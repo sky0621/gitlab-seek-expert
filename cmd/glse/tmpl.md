@@ -1,6 +1,9 @@
-## リポジトリ一覧
+# リポジトリ一覧
 
-| No | Project NameSpace | Project Name | Description |
-| :--- | :--- | :--- | :--- |
-{{range .}}| {{.No}} | {{.Namespace}} | {{.Name}} | {{.Description}} |
+{{range .}}## {{.Path}}
+
+| No | Project Name | Description | Owner | Web URL | Last Activity At |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+{{range .Projects}}| {{.No}} | {{.Name}} | {{.Description}} | {{.Owner}} | {{.WebURL}} | {{.LastActivityAt}} |
+{{end}}
 {{end}}
