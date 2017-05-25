@@ -56,6 +56,24 @@ func main() {
 			if ns.Path != p.Namespace.Path {
 				continue
 			}
+
+			commits, res, err := git.Commits.ListCommits(p.ID, &gitlab.ListCommitsOptions{})
+			if err != nil {
+				panic(err)
+			}
+			if res.Status != "200 OK" {
+				panic(errors.New("not 200 OK"))
+			}
+
+			cmtMap := map[string]int{}
+			for _, cmt := range commits {
+				if cnt, ok := cmtMap[cmt.AuthorName]; ok {
+					cmtMap[cmt.AuthorName] = cnt + 1
+				} else {
+					cmtMap[cmt.AuthorName] = 1
+				}
+			}
+
 			glPrjs = append(glPrjs, &gitlabProject{
 				No:             no,
 				ID:             p.ID,
@@ -66,6 +84,8 @@ func main() {
 				Owner:          getOwnerName(p.Owner),
 				WebURL:         p.WebURL,
 				LastActivityAt: p.LastActivityAt.Format("2006-01-02 15:04:05"),
+				CommitCount:    len(commits),
+				CommitUsers:    fmt.Sprintf("%v", cmtMap),
 			})
 			no = no + 1
 		}
@@ -98,6 +118,8 @@ type gitlabProject struct {
 	Owner          string
 	WebURL         string
 	LastActivityAt string
+	CommitCount    int
+	CommitUsers    string
 }
 
 func getOwnerName(o *gitlab.User) string {
