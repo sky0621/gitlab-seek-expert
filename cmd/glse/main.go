@@ -11,6 +11,10 @@ import (
 	gitlab "github.com/xanzy/go-gitlab"
 )
 
+const (
+	perPage = 99999
+)
+
 // TODO 機能実現スピード最優先での実装なので要リファクタ
 func main() {
 	host := flag.String("host", "example.com", "GitLab Host Name")
@@ -22,8 +26,7 @@ func main() {
 
 	namespaces, res, err := git.Namespaces.ListNamespaces(&gitlab.ListNamespacesOptions{
 		ListOptions: gitlab.ListOptions{
-			Page:    1,
-			PerPage: 1000,
+			PerPage: perPage,
 		},
 	})
 	if err != nil {
@@ -39,8 +42,7 @@ func main() {
 			OrderBy: gitlab.String("name"),
 			Sort:    gitlab.String("asc"),
 			ListOptions: gitlab.ListOptions{
-				Page:    1,
-				PerPage: 1000,
+				PerPage: perPage,
 			},
 		})
 		if err != nil {
@@ -50,6 +52,10 @@ func main() {
 			panic(errors.New("not 200 OK"))
 		}
 
+		if len(projects) == 0 {
+			continue
+		}
+
 		glPrjs := []*gitlabProject{}
 		no := 1
 		for _, p := range projects {
@@ -57,7 +63,11 @@ func main() {
 				continue
 			}
 
-			commits, res, err := git.Commits.ListCommits(p.ID, &gitlab.ListCommitsOptions{})
+			commits, res, err := git.Commits.ListCommits(p.ID, &gitlab.ListCommitsOptions{
+				ListOptions: gitlab.ListOptions{
+					PerPage: perPage,
+				},
+			})
 			if err != nil {
 				panic(err)
 			}
@@ -66,6 +76,7 @@ func main() {
 			}
 
 			cmtMap := map[string]int{}
+
 			for _, cmt := range commits {
 				if cnt, ok := cmtMap[cmt.AuthorName]; ok {
 					cmtMap[cmt.AuthorName] = cnt + 1
@@ -81,13 +92,16 @@ func main() {
 				Namespace:      p.Namespace.Name,
 				Name:           p.Name,
 				Description:    p.Description,
-				Owner:          getOwnerName(p.Owner),
 				WebURL:         p.WebURL,
 				LastActivityAt: p.LastActivityAt.Format("2006-01-02 15:04:05"),
 				CommitCount:    len(commits),
 				CommitUsers:    fmt.Sprintf("%v", cmtMap),
 			})
 			no = no + 1
+		}
+
+		if len(glPrjs) == 0 {
+			continue
 		}
 
 		glNss = append(glNss, &gitlabNameSpace{Path: ns.Path, Projects: glPrjs})
@@ -115,16 +129,8 @@ type gitlabProject struct {
 	Namespace      string
 	Name           string
 	Description    string
-	Owner          string
 	WebURL         string
 	LastActivityAt string
 	CommitCount    int
 	CommitUsers    string
-}
-
-func getOwnerName(o *gitlab.User) string {
-	if o == nil {
-		return "-"
-	}
-	return o.Name
 }
