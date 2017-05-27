@@ -75,16 +75,20 @@ func main() {
 				panic(errors.New("not 200 OK"))
 			}
 
-			cmtMap := map[string]int{}
-
+			cmtMap := map[string]*gitlabCommitter{}
 			for _, cmt := range commits {
-				if cnt, ok := cmtMap[cmt.AuthorName]; ok {
-					cmtMap[cmt.AuthorName] = cnt + 1
-				} else {
-					cmtMap[cmt.AuthorName] = 1
+				setCnt := 1
+				if committer, ok := cmtMap[cmt.CommitterEmail]; ok {
+					setCnt = committer.CommitCount + 1
+				}
+				cmtMap[cmt.CommitterEmail] = &gitlabCommitter{
+					CommitterEmail: cmt.CommitterEmail,
+					CommitterName:  cmt.CommitterName,
+					CommitCount:    setCnt,
 				}
 			}
 
+			committers, allCnt := toSlice(cmtMap)
 			glPrjs = append(glPrjs, &gitlabProject{
 				No:             no,
 				ID:             p.ID,
@@ -94,8 +98,8 @@ func main() {
 				Description:    p.Description,
 				WebURL:         p.WebURL,
 				LastActivityAt: p.LastActivityAt.Format("2006-01-02 15:04:05"),
-				CommitCount:    len(commits),
-				CommitUsers:    fmt.Sprintf("%v", cmtMap),
+				CommitCount:    allCnt,
+				Committers:     committers,
 			})
 			no = no + 1
 		}
@@ -132,5 +136,21 @@ type gitlabProject struct {
 	WebURL         string
 	LastActivityAt string
 	CommitCount    int
-	CommitUsers    string
+	Committers     []*gitlabCommitter
+}
+
+type gitlabCommitter struct {
+	CommitterEmail string
+	CommitterName  string
+	CommitCount    int
+}
+
+func toSlice(cmtMap map[string]*gitlabCommitter) ([]*gitlabCommitter, int) {
+	committers := []*gitlabCommitter{}
+	allCnt := 0
+	for _, v := range cmtMap {
+		committers = append(committers, v)
+		allCnt = allCnt + v.CommitCount
+	}
+	return committers, allCnt
 }
