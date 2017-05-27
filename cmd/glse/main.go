@@ -96,7 +96,7 @@ func main() {
 				NamespaceID:    p.Namespace.ID,
 				Namespace:      p.Namespace.Name,
 				Name:           p.Name,
-				Description:    toMdDescription(p.Description),
+				Descriptions:   toDescriptions(p.Description),
 				WebURL:         p.WebURL,
 				LastActivityAt: p.LastActivityAt.Format("2006-01-02 15:04:05"),
 				CommitCount:    allCnt,
@@ -133,7 +133,7 @@ type gitlabProject struct {
 	NamespaceID    int
 	Namespace      string
 	Name           string
-	Description    string
+	Descriptions   []string
 	WebURL         string
 	LastActivityAt string
 	CommitCount    int
@@ -146,8 +146,8 @@ type gitlabCommitter struct {
 	CommitCount    int
 }
 
-func toMdDescription(d string) string {
-	return strings.Replace(d, "\r\n", "<br>", -1)
+func toDescriptions(d string) []string {
+	return strings.Split(d, "\r\n")
 }
 
 func toSlice(cmtMap map[string]*gitlabCommitter) ([]*gitlabCommitter, int) {
