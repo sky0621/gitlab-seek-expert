@@ -10,6 +10,7 @@ import (
 
 	gitlab "github.com/xanzy/go-gitlab"
 	"strings"
+	"sort"
 )
 
 const (
@@ -146,16 +147,31 @@ type gitlabCommitter struct {
 	CommitCount    int
 }
 
+type gitlabCommitters []*gitlabCommitter
+
+func (c gitlabCommitters) Len() int {
+	return len(c)
+}
+
+func (p gitlabCommitters) Swap(i, j int) {
+	p[i], p[j] = p[j], p[i]
+}
+
+func (p gitlabCommitters) Less(i, j int) bool {
+	return p[i].CommitCount > p[j].CommitCount
+}
+
 func toDescriptions(d string) []string {
 	return strings.Split(d, "\r\n")
 }
 
-func toSlice(cmtMap map[string]*gitlabCommitter) ([]*gitlabCommitter, int) {
-	committers := []*gitlabCommitter{}
+func toSlice(cmtMap map[string]*gitlabCommitter) (gitlabCommitters, int) {
+	committers := gitlabCommitters{}
 	allCnt := 0
 	for _, v := range cmtMap {
 		committers = append(committers, v)
 		allCnt = allCnt + v.CommitCount
 	}
+	sort.Sort(committers)
 	return committers, allCnt
 }
