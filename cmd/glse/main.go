@@ -9,6 +9,7 @@ import (
 	"errors"
 
 	gitlab "github.com/xanzy/go-gitlab"
+	"strings"
 )
 
 const (
@@ -146,7 +147,7 @@ type gitlabCommitter struct {
 }
 
 func toMdDescription(d string) string {
-	return d
+	return strings.Replace(d, "\r\n", "<br>", -1)
 }
 
 func toSlice(cmtMap map[string]*gitlabCommitter) ([]*gitlabCommitter, int) {
