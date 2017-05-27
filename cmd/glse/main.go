@@ -95,7 +95,7 @@ func main() {
 				NamespaceID:    p.Namespace.ID,
 				Namespace:      p.Namespace.Name,
 				Name:           p.Name,
-				Description:    p.Description,
+				Description:    toMdDescription(p.Description),
 				WebURL:         p.WebURL,
 				LastActivityAt: p.LastActivityAt.Format("2006-01-02 15:04:05"),
 				CommitCount:    allCnt,
@@ -143,6 +143,10 @@ type gitlabCommitter struct {
 	CommitterEmail string
 	CommitterName  string
 	CommitCount    int
+}
+
+func toMdDescription(d string) string {
+	return d
 }
 
 func toSlice(cmtMap map[string]*gitlabCommitter) ([]*gitlabCommitter, int) {
