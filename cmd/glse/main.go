@@ -8,9 +8,10 @@ import (
 
 	"errors"
 
-	gitlab "github.com/xanzy/go-gitlab"
-	"strings"
 	"sort"
+	"strings"
+
+	gitlab "github.com/xanzy/go-gitlab"
 )
 
 const (
@@ -96,6 +97,7 @@ func main() {
 				ID:             p.ID,
 				NamespaceID:    p.Namespace.ID,
 				Namespace:      p.Namespace.Name,
+				AvatarURL:      p.AvatarURL,
 				Name:           p.Name,
 				Descriptions:   toDescriptions(p.Description),
 				WebURL:         p.WebURL,
@@ -133,6 +135,7 @@ type gitlabProject struct {
 	ID             int
 	NamespaceID    int
 	Namespace      string
+	AvatarURL      string
 	Name           string
 	Descriptions   []string
 	WebURL         string
