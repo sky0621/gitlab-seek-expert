@@ -2,16 +2,16 @@
 
 ## groupB
 
-| No | Avatar | Project Name | Description | Web URL | Last Activity At | Commit Count | Commit Users |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | ![Avatar]() | project_old_scala_A | 古い<br>スカラプロジェクトです。<br> | http://localhost:10080/groupB/project_old_scala_A | 2017-05-24 22:25:39 | 0 |  |
+| No | Avatar | Project Name | Description | Last Activity At | Commit Users |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 1 | ![No Image]( =100x) | [project_old_scala_A](http://localhost:10080/groupB/project_old_scala_A) | 古い<br>スカラプロジェクトです。<br> | 2017-05-24 22:25:39 | TotalCount: 0<br><br> |
 
 ## groupA
 
-| No | Avatar | Project Name | Description | Web URL | Last Activity At | Commit Count | Commit Users |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| 1 | ![Avatar]() | go-account | アカウントリソースを扱うサービス<br>　改行できる<br>descriptionは。<br> | http://localhost:10080/groupA/go-account | 2017-05-28 03:20:25 | 6 | John Doe(johndoe@example.com):3<br>dummy(dummy@gmail.com):2<br>Test User(xxxxxxxxxxxxx@gmail.com):1<br> |
-| 2 | ![Avatar](http://localhost:10080/uploads/project/avatar/5/free-photo-cat-11.jpg) | go-movie | Movie<br> | http://localhost:10080/groupA/go-movie | 2017-05-25 21:11:45 | 0 |  |
-| 3 | ![Avatar]() | project_go_A | <br> | http://localhost:10080/groupA/project_go_A | 2017-05-10 21:53:19 | 1 | dummy(dummy@gmail.com):1<br> |
-| 4 | ![Avatar](http://localhost:10080/uploads/project/avatar/2/pc.png) | project_java_B | Javaプロジェクト<br> | http://localhost:10080/groupA/project_java_B | 2017-05-28 03:21:48 | 1 | dummy(dummy@gmail.com):1<br> |
+| No | Avatar | Project Name | Description | Last Activity At | Commit Users |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| 1 | ![No Image]( =100x) | [go-account](http://localhost:10080/groupA/go-account) | アカウントリソースを扱うサービス<br>　改行できる<br>descriptionは。<br> | 2017-05-28 03:20:25 | TotalCount: 6<br><br>John Doe(johndoe@example.com): 3<br>dummy(dummy@gmail.com): 2<br>Test User(xxxxxxxxxxxxx@gmail.com): 1<br> |
+| 2 | ![No Image](http://localhost:10080/uploads/project/avatar/5/free-photo-cat-11.jpg =100x) | [go-movie](http://localhost:10080/groupA/go-movie) | Movie<br> | 2017-05-25 21:11:45 | TotalCount: 0<br><br> |
+| 3 | ![No Image]( =100x) | [project_go_A](http://localhost:10080/groupA/project_go_A) | <br> | 2017-05-10 21:53:19 | TotalCount: 1<br><br>dummy(dummy@gmail.com): 1<br> |
+| 4 | ![No Image](http://localhost:10080/uploads/project/avatar/2/pc.png =100x) | [project_java_B](http://localhost:10080/groupA/project_java_B) | Javaプロジェクト<br> | 2017-05-28 03:21:48 | TotalCount: 1<br><br>dummy(dummy@gmail.com): 1<br> |
 
