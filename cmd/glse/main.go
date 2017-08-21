@@ -11,6 +11,8 @@ import (
 	"sort"
 	"strings"
 
+	"time"
+
 	gitlab "github.com/xanzy/go-gitlab"
 )
 
@@ -112,7 +114,7 @@ func main() {
 			continue
 		}
 
-		glNss = append(glNss, &gitlabNameSpace{Path: ns.Path, Projects: glPrjs})
+		glNss = append(glNss, &gitlabNameSpace{Datetime: time.Now().Format("2006-01-02 15:04"), Path: ns.Path, Projects: glPrjs})
 	}
 
 	tmpl := template.Must(template.ParseFiles("./tmpl.md"))
@@ -126,6 +128,7 @@ func main() {
 }
 
 type gitlabNameSpace struct {
+	Datetime string
 	Path     string
 	Projects []*gitlabProject
 }
