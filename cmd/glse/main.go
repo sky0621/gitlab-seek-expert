@@ -114,12 +114,12 @@ func main() {
 			continue
 		}
 
-		glNss = append(glNss, &gitlabNameSpace{Datetime: time.Now().Format("2006-01-02 15:04"), Path: ns.Path, Projects: glPrjs})
+		glNss = append(glNss, &gitlabNameSpace{Path: ns.Path, Projects: glPrjs})
 	}
 
 	tmpl := template.Must(template.ParseFiles("./tmpl.md"))
 	buf := &bytes.Buffer{}
-	err = tmpl.Execute(buf, glNss)
+	err = tmpl.Execute(buf, &gitlabResult{Datetime: time.Now().Format("2006-01-02 15:04"), NameSpaces: glNss})
 	if err != nil {
 		panic(err)
 	}
@@ -127,8 +127,12 @@ func main() {
 	fmt.Println(buf.String())
 }
 
+type gitlabResult struct {
+	Datetime   string
+	NameSpaces []*gitlabNameSpace
+}
+
 type gitlabNameSpace struct {
-	Datetime string
 	Path     string
 	Projects []*gitlabProject
 }

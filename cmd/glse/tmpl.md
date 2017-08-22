@@ -1,6 +1,6 @@
 # リポジトリ一覧({{.Datetime}} 時点)
 
-{{range .}}## {{.Path}}
+{{range .NameSpaces}}## {{.Path}}
 
 | No | Avatar | Project Name | Description | Last Activity At | Commit Users |
 | :--- | :--- | :--- | :--- | :--- | :--- |
