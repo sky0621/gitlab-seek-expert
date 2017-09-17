@@ -1,5 +1,7 @@
 # リポジトリ一覧({{.Datetime}} 時点)
 
+#### ※ツール（ https://github.com/sky0621/gitlab-seek-expert ）による自動生成
+
 {{range .NameSpaces}}## {{.Path}}
 
 | No | Avatar | Project Name | Description | Last Activity At | Commit Users |

@@ -1,19 +1,35 @@
 # gitlab-seek-expert
 
-オープンソースのcommunity editionの方を使用
+### ■ツールの説明
 
-## 起動時パラメータ
+##### gitlabのリポジトリ一覧（コミット数の多い順にコミッターも表示）を生成
 
-##### ・host ・・・GitLabホスト（「http(s)」プロトコルはじまりのホスト名）
+### ■実行方法
 
-##### ・pkey ・・・GitLabでの自分のアカウントのPrivate token
+##### [前提]
 
-## 参考
+###### ・go version 1.7
+
+###### ・glide インストール済み
+
+###### ・オープンソースのcommunity editionの方を使用
+
+##### 1. glide up を実行
+
+###### ※Mac or Linux環境の場合、下記コマンドでインストール可能
+
+###### curl https://glide.sh/get | sh
+
+###### 参考：「https://github.com/Masterminds/glide」
+
+##### 2. 下記の起動時パラメータを与えて cmd 配下で go run main.go を実行
+
+###### ・host ・・・GitLabホスト（「http(s)」プロトコルはじまりのホスト名）
+
+###### ・pkey ・・・GitLabでの自分のアカウントのPrivate token
+
+### ■参考
 
 ##### https://docs.gitlab.com/ce/api/README.html
 
 ##### https://github.com/xanzy/go-gitlab
-
-## TODO
- 
-##### 機能実現スピード最優先での実装なので要リファクタ
